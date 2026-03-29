@@ -31,10 +31,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class QuirpOscillator extends SimpleSlimefunItem<BlockTicker> implements TEInventoryBlock, EnergyNetComponent {
 
     private static final int ENERGY_CONSUMPTION = 128;
-    private final ItemStack[] quirps = {TEItems.QUIRP_UP,
-        TEItems.QUIRP_DOWN,
-        TEItems.QUIRP_LEFT,
-        TEItems.QUIRP_RIGHT
+    private final ItemStack[] quirps = {TEItems.QUIRP_UP.item(),
+        TEItems.QUIRP_DOWN.item(),
+        TEItems.QUIRP_LEFT.item(),
+        TEItems.QUIRP_RIGHT.item()
     };
     private final int[] chancesDefault = {25,
         25,
@@ -64,10 +64,10 @@ public class QuirpOscillator extends SimpleSlimefunItem<BlockTicker> implements 
 
     public QuirpOscillator() {
         super(TEItems.transcendence, TEItems.QUIRP_OSCILLATOR, TERecipeType.NANOBOT_CRAFTER,
-            new ItemStack[] {SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.REINFORCED_PLATE,
-                SlimefunItems.BLISTERING_INGOT_3,
-                SlimefunItems.SYNTHETIC_EMERALD, SlimefunItems.NETHER_STAR_REACTOR, SlimefunItems.SYNTHETIC_EMERALD,
-                SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.REINFORCED_PLATE, SlimefunItems.BLISTERING_INGOT_3}
+            new ItemStack[] {SlimefunItems.BLISTERING_INGOT_3.item(), SlimefunItems.REINFORCED_PLATE.item(),
+                SlimefunItems.BLISTERING_INGOT_3.item(),
+                SlimefunItems.SYNTHETIC_EMERALD.item(), SlimefunItems.NETHER_STAR_REACTOR.item(), SlimefunItems.SYNTHETIC_EMERALD.item(),
+                SlimefunItems.BLISTERING_INGOT_3.item(), SlimefunItems.REINFORCED_PLATE.item(), SlimefunItems.BLISTERING_INGOT_3.item()}
         );
 
         createPreset(this, this::constructMenu);
@@ -75,20 +75,20 @@ public class QuirpOscillator extends SimpleSlimefunItem<BlockTicker> implements 
 
     private void constructMenu(BlockMenuPreset preset) {
         for (int i : border) {
-            preset.addItem(i, new CustomItemStack(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), " "),
+            preset.addItem(i, CustomItemStack.create(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), " "),
                 ChestMenuUtils.getEmptyClickHandler());
         }
 
         for (int i : inputBorder) {
-            preset.addItem(i, new CustomItemStack(new ItemStack(Material.CYAN_STAINED_GLASS_PANE), " "),
+            preset.addItem(i, CustomItemStack.create(new ItemStack(Material.CYAN_STAINED_GLASS_PANE), " "),
                 ChestMenuUtils.getEmptyClickHandler());
         }
         for (int i : outputBorder) {
-            preset.addItem(i, new CustomItemStack(new ItemStack(Material.ORANGE_STAINED_GLASS_PANE), " "),
+            preset.addItem(i, CustomItemStack.create(new ItemStack(Material.ORANGE_STAINED_GLASS_PANE), " "),
                 ChestMenuUtils.getEmptyClickHandler());
         }
         for (int i : polarizerBorder) {
-            preset.addItem(i, new CustomItemStack(new ItemStack(Material.PURPLE_STAINED_GLASS_PANE), " "),
+            preset.addItem(i, CustomItemStack.create(new ItemStack(Material.PURPLE_STAINED_GLASS_PANE), " "),
                 ChestMenuUtils.getEmptyClickHandler());
         }
 
@@ -190,10 +190,10 @@ public class QuirpOscillator extends SimpleSlimefunItem<BlockTicker> implements 
 
             private int[] getChances(BlockMenu menu) {
                 ItemStack pol = menu.getItemInSlot(polarizerSlot);
-                if (SlimefunUtils.isItemSimilar(pol, TEItems.VERTICAL_POLARIZER, true)) {
+                if (SlimefunUtils.isItemSimilar(pol, TEItems.VERTICAL_POLARIZER.item(), true)) {
                     return Polarizer.getChances(Polarizer.Type.VERTICAL);
                 }
-                if (SlimefunUtils.isItemSimilar(pol, TEItems.HORIZONTAL_POLARIZER, true)) {
+                if (SlimefunUtils.isItemSimilar(pol, TEItems.HORIZONTAL_POLARIZER.item(), true)) {
                     return Polarizer.getChances(Polarizer.Type.HORIZONTAL);
                 }
                 return chancesDefault;

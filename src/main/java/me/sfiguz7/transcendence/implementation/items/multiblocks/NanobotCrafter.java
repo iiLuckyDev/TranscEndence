@@ -68,7 +68,7 @@ public class NanobotCrafter extends io.github.thebusybiscuit.slimefun4.core.mult
             for (int j = 0; j < 9; j++) {
                 if (inv.getContents()[j].getType() != Material.AIR) {
                     if (inv.getContents()[j].getAmount() > 1)
-                        inv.setItem(j, new CustomItemStack(inv.getContents()[j], inv.getContents()[j].getAmount() - 1));
+                        inv.setItem(j, CustomItemStack.create(inv.getContents()[j], inv.getContents()[j].getAmount() - 1));
                     else inv.setItem(j, null);
                 }
             }
@@ -120,7 +120,7 @@ public class NanobotCrafter extends io.github.thebusybiscuit.slimefun4.core.mult
 
         for (int j = 0; j < inv.getContents().length; j++) {
             ItemStack stack = inv.getContents()[j].getAmount() > 1 ?
-                new CustomItemStack(inv.getContents()[j], inv.getContents()[j].getAmount() - 1) : null;
+                CustomItemStack.create(inv.getContents()[j], inv.getContents()[j].getAmount() - 1) : null;
             fakeInv.setItem(j, stack);
         }
 

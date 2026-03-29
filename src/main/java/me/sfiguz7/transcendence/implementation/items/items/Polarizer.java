@@ -21,11 +21,11 @@ public class Polarizer extends SlimefunItem {
     public enum Type {
         VERTICAL(TEItems.VERTICAL_POLARIZER,
             getPolarizedChances(true),
-            new ItemStack[] {TEItems.QUIRP_UP, TEItems.QUIRP_DOWN}
+            new ItemStack[] {TEItems.QUIRP_UP.item(), TEItems.QUIRP_DOWN.item()}
         ),
         HORIZONTAL(TEItems.HORIZONTAL_POLARIZER,
             getPolarizedChances(false),
-            new ItemStack[] {TEItems.QUIRP_LEFT, TEItems.QUIRP_RIGHT}
+            new ItemStack[] {TEItems.QUIRP_LEFT.item(), TEItems.QUIRP_RIGHT.item()}
         );
 
         private final SlimefunItemStack slimefunItem;

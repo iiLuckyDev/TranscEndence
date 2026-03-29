@@ -17,16 +17,16 @@ public class UnstableIngots extends UnstableItem {
 
     public enum Type {
         FULL(TEItems.UNSTABLE_INGOT,
-            new ItemStack[] {SlimefunItems.BLISTERING_INGOT_3, TEItems.QUIRP_UP, SlimefunItems.BLISTERING_INGOT_3,
-                TEItems.QUIRP_LEFT, new ItemStack(Material.DIAMOND_BLOCK), TEItems.QUIRP_RIGHT,
-                SlimefunItems.BLISTERING_INGOT_3, TEItems.QUIRP_DOWN, SlimefunItems.BLISTERING_INGOT_3
+            new ItemStack[] {SlimefunItems.BLISTERING_INGOT_3.item(), TEItems.QUIRP_UP.item(), SlimefunItems.BLISTERING_INGOT_3.item(),
+                TEItems.QUIRP_LEFT.item(), new ItemStack(Material.DIAMOND_BLOCK), TEItems.QUIRP_RIGHT.item(),
+                SlimefunItems.BLISTERING_INGOT_3.item(), TEItems.QUIRP_DOWN.item(), SlimefunItems.BLISTERING_INGOT_3.item()
             }
         ),
-        SEVENTYFIVE(TEItems.UNSTABLE_INGOT_2, TEItems.UNSTABLE_INGOT
+        SEVENTYFIVE(TEItems.UNSTABLE_INGOT_2, TEItems.UNSTABLE_INGOT.item()
         ),
-        FIFTY(TEItems.UNSTABLE_INGOT_3, TEItems.UNSTABLE_INGOT_2
+        FIFTY(TEItems.UNSTABLE_INGOT_3, TEItems.UNSTABLE_INGOT_2.item()
         ),
-        TWENTYFIVE(TEItems.UNSTABLE_INGOT_4, TEItems.UNSTABLE_INGOT_3
+        TWENTYFIVE(TEItems.UNSTABLE_INGOT_4, TEItems.UNSTABLE_INGOT_3.item()
         );
 
         private final SlimefunItemStack slimefunItem;
@@ -39,7 +39,7 @@ public class UnstableIngots extends UnstableItem {
 
         Type(SlimefunItemStack slimefunItem, ItemStack prevIngot) {
             this(slimefunItem, new ItemStack[] {
-                prevIngot, TEItems.QUIRP_CONDENSATE, null,
+                prevIngot, TEItems.QUIRP_CONDENSATE.item(), null,
                 null, null, null,
                 null, null, null
             });

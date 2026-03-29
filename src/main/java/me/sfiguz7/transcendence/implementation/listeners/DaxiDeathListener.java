@@ -47,7 +47,7 @@ public class DaxiDeathListener implements Listener {
             // To work around this, we try to add the stable blocks to the player's inventory, and if that fails
             // we drop them directly.
             int howMany = activePlayers.get(uuid).size();
-            HashMap<Integer, ItemStack> notFitting = p.getInventory().addItem(new CustomItemStack(TEItems.STABLE_BLOCK, 8*howMany));
+            HashMap<Integer, ItemStack> notFitting = p.getInventory().addItem(CustomItemStack.create(TEItems.STABLE_BLOCK.item(), 8*howMany));
             if (!notFitting.isEmpty()) {
                 p.getWorld().dropItem(p.getLocation(), notFitting.get(0));
             }

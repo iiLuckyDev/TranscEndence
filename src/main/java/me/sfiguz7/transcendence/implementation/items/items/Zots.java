@@ -13,13 +13,13 @@ public class Zots extends SlimefunItem {
     }
 
     public enum Type {
-        UP(TEItems.ZOT_UP, TEItems.QUIRP_UP
+        UP(TEItems.ZOT_UP, TEItems.QUIRP_UP.item()
         ),
-        DOWN(TEItems.ZOT_DOWN, TEItems.QUIRP_DOWN
+        DOWN(TEItems.ZOT_DOWN, TEItems.QUIRP_DOWN.item()
         ),
-        LEFT(TEItems.ZOT_LEFT, TEItems.QUIRP_LEFT
+        LEFT(TEItems.ZOT_LEFT, TEItems.QUIRP_LEFT.item()
         ),
-        RIGHT(TEItems.ZOT_RIGHT, TEItems.QUIRP_RIGHT
+        RIGHT(TEItems.ZOT_RIGHT, TEItems.QUIRP_RIGHT.item()
         );
 
         private final SlimefunItemStack slimefunItem;
@@ -31,7 +31,7 @@ public class Zots extends SlimefunItem {
 
             this.recipe = new ItemStack[] {
                 quirp, quirp, quirp,
-                quirp, stableBlock, quirp,
+                quirp, stableBlock.item(), quirp,
                 quirp, quirp, quirp};
         }
     }

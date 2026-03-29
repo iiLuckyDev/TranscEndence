@@ -30,7 +30,7 @@ public final class TEItems {
     /* Category */
     public static final ItemGroup transcendence = new ItemGroup(new NamespacedKey(TranscEndence.getInstance(),
         "transcendence"),
-        new CustomItemStack(Material.PURPUR_BLOCK, "&5TranscEndence")
+        CustomItemStack.create(Material.PURPUR_BLOCK, "&5TranscEndence")
     );
     /* Items */
     public static final SlimefunItemStack QUIRP_UP = new SlimefunItemStack("QUIRP_UP",

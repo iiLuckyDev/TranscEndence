@@ -128,7 +128,7 @@ public class Daxi extends SlimefunItem {
                     float yRand = (random.nextFloat() - 0.5F) * 3.2F;
                     float zRand = (random.nextFloat() - 0.5F) * 3.2F;
 
-                    p.getWorld().spawnParticle(Particle.REDSTONE,
+                    p.getWorld().spawnParticle(Particle.DUST,
                         l.getX() + (double) xRand,
                         l.getY() + 2.0D + (double) yRand,
                         l.getZ() + (double) zRand,
@@ -169,40 +169,40 @@ public class Daxi extends SlimefunItem {
 
     public enum Type {
         STRENGTH(TEItems.DAXI_STRENGTH,
-            new ItemStack[] {TEItems.ZOT_UP_2, TEItems.ZOT_UP_2, TEItems.ZOT_UP_2, TEItems.ZOT_UP_2},
-            new ItemStack[] {TEItems.ZOT_UP, TEItems.ZOT_UP, TEItems.ZOT_UP, TEItems.ZOT_UP},
+            new ItemStack[] {TEItems.ZOT_UP_2.item(), TEItems.ZOT_UP_2.item(), TEItems.ZOT_UP_2.item(), TEItems.ZOT_UP_2.item()},
+            new ItemStack[] {TEItems.ZOT_UP.item(), TEItems.ZOT_UP.item(), TEItems.ZOT_UP.item(), TEItems.ZOT_UP.item()},
             new Color[] {Color.RED, Color.RED, Color.FUCHSIA, Color.FUCHSIA},
-            PotionEffectType.INCREASE_DAMAGE,
+            PotionEffectType.STRENGTH,
             CONFIG.getInt("daxi-effects.strength-level"),
             CONFIG.getString("options.daxi-message-strength")
         ),
         ABSORPTION(TEItems.DAXI_ABSORPTION,
-            new ItemStack[] {TEItems.ZOT_DOWN_2, TEItems.ZOT_DOWN_2, TEItems.ZOT_DOWN_2, TEItems.ZOT_DOWN_2},
-            new ItemStack[] {TEItems.ZOT_DOWN, TEItems.ZOT_DOWN, TEItems.ZOT_DOWN, TEItems.ZOT_DOWN},
+            new ItemStack[] {TEItems.ZOT_DOWN_2.item(), TEItems.ZOT_DOWN_2.item(), TEItems.ZOT_DOWN_2.item(), TEItems.ZOT_DOWN_2.item()},
+            new ItemStack[] {TEItems.ZOT_DOWN.item(), TEItems.ZOT_DOWN.item(), TEItems.ZOT_DOWN.item(), TEItems.ZOT_DOWN.item()},
             new Color[] {Color.YELLOW, Color.YELLOW, Color.ORANGE, Color.ORANGE},
             PotionEffectType.ABSORPTION,
             CONFIG.getInt("daxi-effects.absorption-level"),
             CONFIG.getString("options.daxi-message-absorption")
         ),
         FORTITUDE(TEItems.DAXI_FORTITUDE,
-            new ItemStack[] {TEItems.ZOT_LEFT_2, TEItems.ZOT_LEFT_2, TEItems.ZOT_LEFT_2, TEItems.ZOT_LEFT_2},
-            new ItemStack[] {TEItems.ZOT_LEFT, TEItems.ZOT_LEFT, TEItems.ZOT_LEFT, TEItems.ZOT_LEFT},
+            new ItemStack[] {TEItems.ZOT_LEFT_2.item(), TEItems.ZOT_LEFT_2.item(), TEItems.ZOT_LEFT_2.item(), TEItems.ZOT_LEFT_2.item()},
+            new ItemStack[] {TEItems.ZOT_LEFT.item(), TEItems.ZOT_LEFT.item(), TEItems.ZOT_LEFT.item(), TEItems.ZOT_LEFT.item()},
             new Color[] {Color.LIME, Color.LIME, Color.GREEN, Color.GREEN},
-            PotionEffectType.DAMAGE_RESISTANCE,
+            PotionEffectType.RESISTANCE,
             CONFIG.getInt("daxi-effects.fortitude-level"),
             CONFIG.getString("options.daxi-message-fortitude")
         ),
         SATURATION(TEItems.DAXI_SATURATION,
-            new ItemStack[] {TEItems.ZOT_RIGHT_2, TEItems.ZOT_RIGHT_2, TEItems.ZOT_RIGHT_2, TEItems.ZOT_RIGHT_2},
-            new ItemStack[] {TEItems.ZOT_RIGHT, TEItems.ZOT_RIGHT, TEItems.ZOT_RIGHT, TEItems.ZOT_RIGHT},
+            new ItemStack[] {TEItems.ZOT_RIGHT_2.item(), TEItems.ZOT_RIGHT_2.item(), TEItems.ZOT_RIGHT_2.item(), TEItems.ZOT_RIGHT_2.item()},
+            new ItemStack[] {TEItems.ZOT_RIGHT.item(), TEItems.ZOT_RIGHT.item(), TEItems.ZOT_RIGHT.item(), TEItems.ZOT_RIGHT.item()},
             new Color[] {Color.AQUA, Color.AQUA, Color.TEAL, Color.TEAL},
             PotionEffectType.SATURATION,
             CONFIG.getInt("daxi-effects.saturation-level"),
             CONFIG.getString("options.daxi-message-saturation")
         ),
         REGENERATION(TEItems.DAXI_REGENERATION,
-            new ItemStack[] {TEItems.ZOT_UP_2, TEItems.ZOT_LEFT_2, TEItems.ZOT_RIGHT_2, TEItems.ZOT_DOWN_2},
-            new ItemStack[] {TEItems.ZOT_UP, TEItems.ZOT_LEFT, TEItems.ZOT_RIGHT, TEItems.ZOT_DOWN},
+            new ItemStack[] {TEItems.ZOT_UP_2.item(), TEItems.ZOT_LEFT_2.item(), TEItems.ZOT_RIGHT_2.item(), TEItems.ZOT_DOWN_2.item()},
+            new ItemStack[] {TEItems.ZOT_UP.item(), TEItems.ZOT_LEFT.item(), TEItems.ZOT_RIGHT.item(), TEItems.ZOT_DOWN.item()},
             new Color[] {Color.RED, Color.YELLOW, Color.LIME, Color.AQUA},
             PotionEffectType.REGENERATION,
             CONFIG.getInt("daxi-effects.regeneration-level"),
@@ -223,9 +223,9 @@ public class Daxi extends SlimefunItem {
             this.zotsAnimation = zotsAnimation;
             this.colors = colors;
             this.recipe = new ItemStack[] {
-                TEItems.STABLE_BLOCK, zots[0], TEItems.STABLE_BLOCK,
-                zots[1], TEItems.STABLE_INGOT, zots[2],
-                TEItems.STABLE_BLOCK, zots[3], TEItems.STABLE_BLOCK};
+                TEItems.STABLE_BLOCK.item(), zots[0], TEItems.STABLE_BLOCK.item(),
+                zots[1], TEItems.STABLE_INGOT.item(), zots[2],
+                TEItems.STABLE_BLOCK.item(), zots[3], TEItems.STABLE_BLOCK.item()};
             this.effect = effect;
             this.level = level - 1;
             this.message = message;

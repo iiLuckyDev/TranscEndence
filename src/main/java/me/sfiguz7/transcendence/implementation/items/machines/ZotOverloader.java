@@ -62,23 +62,23 @@ public class ZotOverloader extends SimpleSlimefunItem<BlockTicker> implements TE
         33, 34, 35,
     };
     private final ItemStack[] allowedSlotsItems = {
-        ZOT_UP,
-        ZOT_DOWN,
-        ZOT_LEFT,
-        ZOT_RIGHT
+        ZOT_UP.item(),
+        ZOT_DOWN.item(),
+        ZOT_LEFT.item(),
+        ZOT_RIGHT.item()
     };
     private final ItemStack[] allowedInputItems = {
-        QUIRP_UP,
-        QUIRP_DOWN,
-        QUIRP_LEFT,
-        QUIRP_RIGHT
+        QUIRP_UP.item(),
+        QUIRP_DOWN.item(),
+        QUIRP_LEFT.item(),
+        QUIRP_RIGHT.item()
     };
 
     public ZotOverloader() {
         super(TEItems.transcendence, TEItems.ZOT_OVERLOADER, TERecipeType.NANOBOT_CRAFTER,
-            new ItemStack[] {TEItems.QUIRP_CONDENSATE, TEItems.QUIRP_UP, TEItems.QUIRP_CONDENSATE,
-                TEItems.QUIRP_LEFT, TEItems.STABLE_BLOCK, TEItems.QUIRP_RIGHT,
-                TEItems.QUIRP_CONDENSATE, TEItems.QUIRP_DOWN, TEItems.QUIRP_CONDENSATE});
+            new ItemStack[] {TEItems.QUIRP_CONDENSATE.item(), TEItems.QUIRP_UP.item(), TEItems.QUIRP_CONDENSATE.item(),
+                TEItems.QUIRP_LEFT.item(), TEItems.STABLE_BLOCK.item(), TEItems.QUIRP_RIGHT.item(),
+                TEItems.QUIRP_CONDENSATE.item(), TEItems.QUIRP_DOWN.item(), TEItems.QUIRP_CONDENSATE.item()});
 
         createPreset(this, this::constructMenu);
         addItemHandler(onBreak());
@@ -86,15 +86,15 @@ public class ZotOverloader extends SimpleSlimefunItem<BlockTicker> implements TE
 
     private void constructMenu(BlockMenuPreset preset) {
         for (int i : border) {
-            preset.addItem(i, new CustomItemStack(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), " "),
+            preset.addItem(i, CustomItemStack.create(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), " "),
                 ChestMenuUtils.getEmptyClickHandler());
         }
         for (int i : inputBorder) {
-            preset.addItem(i, new CustomItemStack(new ItemStack(Material.CYAN_STAINED_GLASS_PANE), " "),
+            preset.addItem(i, CustomItemStack.create(new ItemStack(Material.CYAN_STAINED_GLASS_PANE), " "),
                 ChestMenuUtils.getEmptyClickHandler());
         }
         for (int i : slotsBorder) {
-            preset.addItem(i, new CustomItemStack(new ItemStack(Material.RED_STAINED_GLASS_PANE), " "),
+            preset.addItem(i, CustomItemStack.create(new ItemStack(Material.RED_STAINED_GLASS_PANE), " "),
                 ChestMenuUtils.getEmptyClickHandler());
         }
     }
@@ -215,13 +215,13 @@ public class ZotOverloader extends SimpleSlimefunItem<BlockTicker> implements TE
 
     private ItemStack getZot(String zotSpin) {
         if (zotSpin.compareTo("Up") == 0) {
-            return ZOT_UP_2;
+            return ZOT_UP_2.item();
         } else if (zotSpin.compareTo("Down") == 0) {
-            return ZOT_DOWN_2;
+            return ZOT_DOWN_2.item();
         } else if (zotSpin.compareTo("Left") == 0) {
-            return ZOT_LEFT_2;
+            return ZOT_LEFT_2.item();
         }
-        return ZOT_RIGHT_2;
+        return ZOT_RIGHT_2.item();
 
     }
 

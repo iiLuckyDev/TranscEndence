@@ -7,8 +7,8 @@
     <version>DevTest-33</version>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -53,14 +53,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.6.0</version>
 
                 <configuration>
 
                     <!-- Shade dependencies into the output jar -->
                     <relocations>
                         <relocation>
-                            <pattern>org.bstats.bukkit</pattern>
+                            <pattern>org.bstats</pattern>
                             <shadedPattern>me.sfiguz7.transcendence.bstats</shadedPattern>
                         </relocation>
                     </relocations>
@@ -92,20 +92,20 @@
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
-            <version>1.7</version>
+            <version>3.1.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.15.2-R0.1-SNAPSHOT</version>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.21.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.TheBusyBiscuit</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>RC-27</version>
+            <version>experimental-SNAPSHOT</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>

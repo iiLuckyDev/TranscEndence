@@ -12,19 +12,19 @@ public class QuirpAnnihilator extends AContainer implements RecipeDisplayItem {
 
     public QuirpAnnihilator() {
         super(TEItems.transcendence, TEItems.QUIRP_ANNIHILATOR, TERecipeType.NANOBOT_CRAFTER,
-            new ItemStack[] {SlimefunItems.ADVANCED_CIRCUIT_BOARD, TEItems.QUIRP_UP,
-                SlimefunItems.ADVANCED_CIRCUIT_BOARD,
-                TEItems.QUIRP_LEFT, SlimefunItems.HEATED_PRESSURE_CHAMBER_2, TEItems.QUIRP_RIGHT,
-                SlimefunItems.REINFORCED_PLATE, TEItems.QUIRP_DOWN, SlimefunItems.REINFORCED_PLATE});
+            new ItemStack[] {SlimefunItems.ADVANCED_CIRCUIT_BOARD.item(), TEItems.QUIRP_UP.item(),
+                SlimefunItems.ADVANCED_CIRCUIT_BOARD.item(),
+                TEItems.QUIRP_LEFT.item(), SlimefunItems.HEATED_PRESSURE_CHAMBER_2.item(), TEItems.QUIRP_RIGHT.item(),
+                SlimefunItems.REINFORCED_PLATE.item(), TEItems.QUIRP_DOWN.item(), SlimefunItems.REINFORCED_PLATE.item()});
     }
 
     @Override
     protected void registerDefaultRecipes() {
 
-        registerRecipe(8, new ItemStack[] {TEItems.QUIRP_UP, TEItems.QUIRP_DOWN},
-            new ItemStack[] {TEItems.QUIRP_CONDENSATE});
-        registerRecipe(8, new ItemStack[] {TEItems.QUIRP_LEFT, TEItems.QUIRP_RIGHT},
-            new ItemStack[] {TEItems.QUIRP_CONDENSATE});
+        registerRecipe(8, new ItemStack[] {TEItems.QUIRP_UP.item(), TEItems.QUIRP_DOWN.item()},
+            new ItemStack[] {TEItems.QUIRP_CONDENSATE.item()});
+        registerRecipe(8, new ItemStack[] {TEItems.QUIRP_LEFT.item(), TEItems.QUIRP_RIGHT.item()},
+            new ItemStack[] {TEItems.QUIRP_CONDENSATE.item()});
 
     }
 
