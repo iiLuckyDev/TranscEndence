@@ -208,51 +208,75 @@ public class TranscEndence extends JavaPlugin implements SlimefunAddon {
 
     /*
      * Slimefun researches do not support prerequisite chains.
-     * We express progression through themed research tiers and steadily rising XP costs.
+     * We therefore keep the progression through steadily rising XP costs
+     * and granular per-item unlocks instead of broad grouped researches.
      */
     private void registerResearches() {
         registerResearch("nanobot_crafter", "Nanobot Crafting", 10,
             TEItems.NANOBOT_CRAFTER);
-        registerResearch("quirp_oscillator", "Quirp Oscillation", 18,
-            TEItems.QUIRP_OSCILLATOR,
-            TEItems.QUIRP_UP,
-            TEItems.QUIRP_DOWN,
-            TEItems.QUIRP_LEFT,
-            TEItems.QUIRP_RIGHT,
+        registerResearch("quirp_oscillator", "Quirp Oscillator", 14,
+            TEItems.QUIRP_OSCILLATOR);
+        registerResearch("quirp_up", "Quirp Up", 16,
+            TEItems.QUIRP_UP);
+        registerResearch("quirp_down", "Quirp Down", 16,
+            TEItems.QUIRP_DOWN);
+        registerResearch("quirp_left", "Quirp Left", 16,
+            TEItems.QUIRP_LEFT);
+        registerResearch("quirp_right", "Quirp Right", 16,
+            TEItems.QUIRP_RIGHT);
+        registerResearch("quirp_condensate", "Quirp Condensate", 18,
             TEItems.QUIRP_CONDENSATE);
-        registerResearch("polarizers", "Quirp Polarization", 20,
-            TEItems.VERTICAL_POLARIZER,
+        registerResearch("polarizers", "Vertical Polarizer", 20,
+            TEItems.VERTICAL_POLARIZER);
+        registerResearch("horizontal_polarizer", "Horizontal Polarizer", 20,
             TEItems.HORIZONTAL_POLARIZER);
-        registerResearch("unstable", "Unstable Matter", 24,
-            TEItems.UNSTABLE_INGOT,
-            TEItems.UNSTABLE_INGOT_2,
-            TEItems.UNSTABLE_INGOT_3,
+        registerResearch("unstable", "Unstable Ingot", 22,
+            TEItems.UNSTABLE_INGOT);
+        registerResearch("unstable_2", "Unstable Ingot 75%", 24,
+            TEItems.UNSTABLE_INGOT_2);
+        registerResearch("unstable_3", "Unstable Ingot 50%", 26,
+            TEItems.UNSTABLE_INGOT_3);
+        registerResearch("unstable_4", "Unstable Ingot 25%", 28,
             TEItems.UNSTABLE_INGOT_4);
-        registerResearch("quirp_annihilator", "Quirp Processing", 30,
-            TEItems.QUIRP_ANNIHILATOR,
-            TEItems.QUIRP_CYCLER,
+        registerResearch("quirp_annihilator", "Quirp Annihilator", 30,
+            TEItems.QUIRP_ANNIHILATOR);
+        registerResearch("quirp_cycler", "Quirp Cycler", 32,
+            TEItems.QUIRP_CYCLER);
+        registerResearch("stabilizer", "Stabilizer", 34,
             TEItems.STABILIZER);
-        registerResearch("stable", "Stable Matter", 34,
-            TEItems.STABLE_INGOT,
+        registerResearch("stable", "Stable Ingot", 36,
+            TEItems.STABLE_INGOT);
+        registerResearch("stable_block", "Stable Block", 38,
             TEItems.STABLE_BLOCK);
-        registerResearch("quirp_scatterer", "Quirp Scattering", 38,
+        registerResearch("quirp_scatterer", "Quirp Scatterer", 40,
             TEItems.QUIRP_SCATTERER);
-        registerResearch("zots", "Zot Compression", 42,
-            TEItems.ZOT_UP,
-            TEItems.ZOT_DOWN,
-            TEItems.ZOT_LEFT,
-            TEItems.ZOT_RIGHT,
-            TEItems.ZOT_UP_2,
-            TEItems.ZOT_DOWN_2,
-            TEItems.ZOT_LEFT_2,
-            TEItems.ZOT_RIGHT_2);
-        registerResearch("zot_overloader", "Zot Overloading", 46,
+        registerResearch("zots", "Zot Up", 42,
+            TEItems.ZOT_UP);
+        registerResearch("zot_down", "Zot Down", 42,
+            TEItems.ZOT_DOWN);
+        registerResearch("zot_left", "Zot Left", 42,
+            TEItems.ZOT_LEFT);
+        registerResearch("zot_right", "Zot Right", 42,
+            TEItems.ZOT_RIGHT);
+        registerResearch("zot_overloader", "Zot Overloader", 46,
             TEItems.ZOT_OVERLOADER);
-        registerResearch("daxis", "Daxi Infusions", 52,
-            TEItems.DAXI_STRENGTH,
-            TEItems.DAXI_ABSORPTION,
-            TEItems.DAXI_FORTITUDE,
-            TEItems.DAXI_SATURATION,
+        registerResearch("zot_up_2", "Charged Zot Up", 48,
+            TEItems.ZOT_UP_2);
+        registerResearch("zot_down_2", "Charged Zot Down", 48,
+            TEItems.ZOT_DOWN_2);
+        registerResearch("zot_left_2", "Charged Zot Left", 48,
+            TEItems.ZOT_LEFT_2);
+        registerResearch("zot_right_2", "Charged Zot Right", 48,
+            TEItems.ZOT_RIGHT_2);
+        registerResearch("daxis", "Daxi Strength", 52,
+            TEItems.DAXI_STRENGTH);
+        registerResearch("daxi_absorption", "Daxi Absorption", 54,
+            TEItems.DAXI_ABSORPTION);
+        registerResearch("daxi_fortitude", "Daxi Fortitude", 56,
+            TEItems.DAXI_FORTITUDE);
+        registerResearch("daxi_saturation", "Daxi Saturation", 58,
+            TEItems.DAXI_SATURATION);
+        registerResearch("daxi_regeneration", "Daxi Regeneration", 60,
             TEItems.DAXI_REGENERATION);
     }
 
