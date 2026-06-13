@@ -40,11 +40,19 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.logging.Level;
 
 public class TranscEndence extends JavaPlugin implements SlimefunAddon {
 
+    private static final int CONFIG_VERSION = 2;
+    private static final DateTimeFormatter CONFIG_BACKUP_TIMESTAMP =
+        DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
     private static TranscEndence instance;
     private final TERegistry registry = new TERegistry();
     private int researchId = 7100;
@@ -56,10 +64,7 @@ public class TranscEndence extends JavaPlugin implements SlimefunAddon {
     public void onEnable() {
 
         instance = this;
-
-        if (!new File(getDataFolder(), "config.yml").exists()) {
-            saveDefaultConfig();
-        }
+        prepareConfig();
 
         Config cfg = new Config(this);
 
@@ -163,7 +168,9 @@ public class TranscEndence extends JavaPlugin implements SlimefunAddon {
         new SlimefunItem(TEItems.transcendence, TEItems.TE_INFO, RecipeType.NULL, new ItemStack[0]
         ).register(this);
 
-        registerResearches();
+        if (cfg.getBoolean("options.enable-addon-researches")) {
+            registerResearches();
+        }
 
         // Initialise data if it exists
         SaveUtils.readData();
@@ -204,6 +211,50 @@ public class TranscEndence extends JavaPlugin implements SlimefunAddon {
 
     public static String getVersion() {
         return instance.getDescription().getVersion();
+    }
+
+    private void prepareConfig() {
+        File dataFolder = getDataFolder();
+        File configFile = new File(dataFolder, "config.yml");
+
+        if (!configFile.exists()) {
+            saveDefaultConfig();
+            reloadConfig();
+            return;
+        }
+
+        reloadConfig();
+        int currentConfigVersion = getConfig().getInt("config-version", 0);
+        if (currentConfigVersion >= CONFIG_VERSION) {
+            return;
+        }
+
+        try {
+            backupConfig(configFile, currentConfigVersion);
+            saveResource("config.yml", true);
+            reloadConfig();
+
+            getLogger().log(Level.INFO,
+                "Updated config.yml from version {0} to version {1}",
+                new Object[] {currentConfigVersion, CONFIG_VERSION});
+        } catch (IOException e) {
+            getLogger().log(Level.SEVERE, "Failed to update config.yml", e);
+            getServer().getPluginManager().disablePlugin(this);
+        }
+    }
+
+    private void backupConfig(File configFile, int currentConfigVersion) throws IOException {
+        File backupFolder = new File(getDataFolder(), "config-backups");
+        if (!backupFolder.exists() && !backupFolder.mkdirs()) {
+            throw new IOException("Could not create config backup folder at " + backupFolder.getAbsolutePath());
+        }
+
+        String backupName = "config-v" + currentConfigVersion + "-"
+            + LocalDateTime.now().format(CONFIG_BACKUP_TIMESTAMP) + ".yml";
+        File backupFile = new File(backupFolder, backupName);
+
+        Files.copy(configFile.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        getLogger().log(Level.INFO, "Backed up old config to {0}", backupFile.getAbsolutePath());
     }
 
     /*

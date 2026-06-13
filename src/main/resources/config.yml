@@ -1,5 +1,13 @@
+# TranscEndence configuration
+# Config version: 2
+# This file is replaced automatically when the bundled config version changes.
+# A backup of the previous file is saved in plugins/TranscEndence/config-backups/.
+
+config-version: 2
+
 options:
   auto-update: true
+  enable-addon-researches: true
   instability-update-interval: 10
   enable-instability-effects: true
   daxi-regen-update-interval: 10
