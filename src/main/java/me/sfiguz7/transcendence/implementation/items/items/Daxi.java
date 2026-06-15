@@ -11,6 +11,7 @@ import me.sfiguz7.transcendence.lists.TERecipeType;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -19,10 +20,13 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -34,6 +38,8 @@ public class Daxi extends SlimefunItem {
     private final Daxi.Type type;
     private static final TranscEndence INSTANCE = TranscEndence.getInstance();
     private static final FileConfiguration CONFIG = INSTANCE.getConfig();
+    private static final NamespacedKey DAXI_TYPES_KEY = new NamespacedKey(INSTANCE, "daxi_types");
+    private static final int DAXI_MIN_DURATION_TICKS = 20 * 60 * 60;
 
     public Daxi(Type type) {
         super(TEItems.transcendence, type.slimefunItem, TERecipeType.NANOBOT_CRAFTER, type.recipe);
@@ -53,6 +59,7 @@ public class Daxi extends SlimefunItem {
         UUID uuid = p.getUniqueId();
         Map<UUID, Set<Daxi.Type>> activePlayers = TranscEndence.getRegistry().getDaxiEffectPlayers();
 
+        synchronizePlayerState(p);
 
         activePlayers.computeIfAbsent(uuid, k -> {
             final Set<Daxi.Type> set = new HashSet<>();
@@ -65,6 +72,7 @@ public class Daxi extends SlimefunItem {
             return;
         } else {
             effects.add(type);
+            storeActiveTypes(p, effects);
         }
 
         startAnimation(p);
@@ -156,6 +164,42 @@ public class Daxi extends SlimefunItem {
         p.addPotionEffect(new PotionEffect(type.effect, Integer.MAX_VALUE, type.level));
     }
 
+    public static Set<Daxi.Type> getActiveTypes(Player p) {
+        final UUID uuid = p.getUniqueId();
+        final Map<UUID, Set<Daxi.Type>> activePlayers = TranscEndence.getRegistry().getDaxiEffectPlayers();
+        Set<Daxi.Type> types = activePlayers.get(uuid);
+
+        if (types == null || types.isEmpty()) {
+            types = getStoredTypes(p);
+        }
+
+        if (types.isEmpty()) {
+            types = getPotionEffectTypes(p);
+        }
+
+        if (!types.isEmpty()) {
+            Set<Daxi.Type> storedTypes = new HashSet<>(types);
+            activePlayers.put(uuid, storedTypes);
+            storeActiveTypes(p, storedTypes);
+            return storedTypes;
+        }
+
+        return types;
+    }
+
+    public static void clearActiveTypes(Player p) {
+        TranscEndence.getRegistry().getDaxiEffectPlayers().remove(p.getUniqueId());
+        p.getPersistentDataContainer().remove(DAXI_TYPES_KEY);
+    }
+
+    public static void synchronizePlayerState(Player p) {
+        Set<Daxi.Type> types = getActiveTypes(p);
+
+        if (!types.isEmpty()) {
+            reapplyEffects(p);
+        }
+    }
+
     public static void reapplyEffects(Player p) {
         final Map<UUID, Set<Daxi.Type>> activePlayers = TranscEndence.getRegistry().getDaxiEffectPlayers();
         final UUID uuid = p.getUniqueId();
@@ -165,6 +209,56 @@ public class Daxi extends SlimefunItem {
                 Daxi.applyEffect(p, type);
             }
         }
+    }
+
+    private static Set<Daxi.Type> getStoredTypes(Player p) {
+        Set<Daxi.Type> types = EnumSet.noneOf(Daxi.Type.class);
+        PersistentDataContainer data = p.getPersistentDataContainer();
+        String stored = data.get(DAXI_TYPES_KEY, PersistentDataType.STRING);
+
+        if (stored == null || stored.isEmpty()) {
+            return types;
+        }
+
+        for (String token : stored.split(",")) {
+            try {
+                types.add(Daxi.Type.valueOf(token));
+            } catch (IllegalArgumentException ignored) {
+                // Ignore stale or malformed entries rather than blocking player login/death handling.
+            }
+        }
+
+        return types;
+    }
+
+    private static Set<Daxi.Type> getPotionEffectTypes(Player p) {
+        Set<Daxi.Type> types = EnumSet.noneOf(Daxi.Type.class);
+
+        for (Daxi.Type type : Daxi.Type.values()) {
+            PotionEffect effect = p.getPotionEffect(type.effect);
+            if (effect != null && effect.getAmplifier() == type.level && effect.getDuration() > DAXI_MIN_DURATION_TICKS) {
+                types.add(type);
+            }
+        }
+
+        return types;
+    }
+
+    private static void storeActiveTypes(Player p, Set<Daxi.Type> types) {
+        if (types.isEmpty()) {
+            p.getPersistentDataContainer().remove(DAXI_TYPES_KEY);
+            return;
+        }
+
+        StringBuilder serialized = new StringBuilder();
+        for (Daxi.Type type : types) {
+            if (serialized.length() > 0) {
+                serialized.append(',');
+            }
+            serialized.append(type.name());
+        }
+
+        p.getPersistentDataContainer().set(DAXI_TYPES_KEY, PersistentDataType.STRING, serialized.toString());
     }
 
     public enum Type {
@@ -233,6 +327,10 @@ public class Daxi extends SlimefunItem {
 
         public int getTypeEffectLevel() {
             return this.level;
+        }
+
+        public PotionEffectType getEffectType() {
+            return this.effect;
         }
 
         public static final Daxi.Type[] values = values();

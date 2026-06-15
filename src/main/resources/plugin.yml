@@ -6,6 +6,7 @@ website: https://github.com/Sfiguz7/TranscEndence
 
 main: me.sfiguz7.transcendence.TranscEndence
 depend: [Slimefun]
+softdepend: [GravesX, Graves]
 
 api-version: 1.14
 

@@ -77,7 +77,9 @@ public class TranscEndence extends JavaPlugin implements SlimefunAddon {
 
 
         // Commands
-        getCommand("transcendence").setExecutor(new TranscEndenceCommand());
+        TranscEndenceCommand command = new TranscEndenceCommand();
+        getCommand("transcendence").setExecutor(command);
+        getCommand("transcendence").setTabCompleter(command);
         // Listeners
         new UnstableListener(this);
         new DaxiDeathListener(this);
@@ -149,6 +151,7 @@ public class TranscEndence extends JavaPlugin implements SlimefunAddon {
             new Zots_2(type).register(this);
         }
         for (Daxi.Type type : Daxi.Type.values()) {
+            registry.getDaxiEffectsMap().put(type.getEffectType(), type);
             new Daxi(type).register(this);
         }
 
@@ -174,6 +177,7 @@ public class TranscEndence extends JavaPlugin implements SlimefunAddon {
 
         // Initialise data if it exists
         SaveUtils.readData();
+        Bukkit.getOnlinePlayers().forEach(Daxi::synchronizePlayerState);
     }
 
     @Override

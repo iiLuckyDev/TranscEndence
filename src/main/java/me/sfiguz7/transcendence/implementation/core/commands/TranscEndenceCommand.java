@@ -9,12 +9,17 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-public class TranscEndenceCommand implements CommandExecutor {
+public class TranscEndenceCommand implements CommandExecutor, TabCompleter {
 
     @Override
     // TODO: sort this mess into subcommands because it's getting obnoxious
@@ -102,6 +107,45 @@ public class TranscEndenceCommand implements CommandExecutor {
         return true;
     }
 
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
+        if (args.length == 1) {
+            List<String> subcommands = new ArrayList<>();
+
+            if (sender instanceof Player) {
+                subcommands.add("guide");
+            }
+
+            subcommands.add("walkthrough");
+            subcommands.add("list");
+
+            if (sender.hasPermission("te.command.reapply")) {
+                subcommands.add("reapply");
+            }
+
+            if (sender.hasPermission("te.command.toggle")) {
+                subcommands.add("toggle");
+            }
+
+            return partialMatches(args[0], subcommands);
+        }
+
+        if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("reapply") && sender.hasPermission("te.command.reapply")
+                || args[0].equalsIgnoreCase("toggle") && sender.hasPermission("te.command.toggle")) {
+                List<String> playerNames = new ArrayList<>();
+
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    playerNames.add(player.getName());
+                }
+
+                return partialMatches(args[1], playerNames);
+            }
+        }
+
+        return Collections.emptyList();
+    }
+
     public void sendHelp(CommandSender sender) {
         sender.sendMessage("");
         sender.sendMessage(ChatColors.color("&aTranscEndence &2v" + TranscEndence.getVersion()));
@@ -114,6 +158,13 @@ public class TranscEndenceCommand implements CommandExecutor {
         if (sender.hasPermission("te.command.toggle")) {
             sender.sendMessage(ChatColors.color("&3/te toggle <name> &b") + "Toggles Daxi effects refreshing for <name>");
         }
+    }
+
+    private List<String> partialMatches(String token, List<String> options) {
+        List<String> completions = new ArrayList<>();
+        StringUtil.copyPartialMatches(token, options, completions);
+        Collections.sort(completions);
+        return completions;
     }
 
 }
